@@ -13,7 +13,7 @@ language for documents and the web, in
 **[View the live demo →](https://markup-carve.github.io/tempest-carve-demo/)**
 
 ```sh
-composer require markup-carve/tempest-carve:dev-main
+composer require markup-carve/tempest-carve
 php tempest discovery:generate --no-interaction
 ```
 
