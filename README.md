@@ -6,7 +6,8 @@
 [![PHPStan](https://img.shields.io/badge/PHPStan-level%209-brightgreen.svg?style=flat)](https://phpstan.org/)
 [![License](https://img.shields.io/github/license/markup-carve/tempest-carve)](LICENSE)
 
-Render [Carve](https://markup-carve.github.io/carve/) content in
+Render [Carve](https://markup-carve.github.io/carve/), a lightweight markup
+language for documents and the web, in
 [Tempest](https://tempestphp.com/) views with a safe-by-default component.
 
 **[View the live demo →](https://markup-carve.github.io/tempest-carve-demo/)**
