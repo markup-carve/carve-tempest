@@ -9,10 +9,14 @@ on:
 permissions:
   contents: read
 
+# Every job declares timeout-minutes so a hung step fails in minutes
+# rather than inheriting the 360-minute GitHub default.
+
 jobs:
   tests:
     name: Tests (${{ matrix.dependencies }})
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     strategy:
       fail-fast: false
       matrix:
@@ -41,6 +45,7 @@ jobs:
   tooling:
     name: Coding standards
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     steps:
       - uses: actions/checkout@v7
