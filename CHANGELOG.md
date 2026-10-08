@@ -7,6 +7,15 @@ and the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+### Changed
+
+- Require carve-php `^0.1.11`, up from `^0.1.9`. That release added the
+  `destination-denied` render-loss code, so a denied destination such as
+  `[x](javascript:alert(1))` now appears in `RenderReport::$losses` and
+  `renderWithReport(..., strictLosses: true)` rejects the document instead of
+  rendering it with a blanked target. On 0.1.9 the same document reported
+  nothing and strict mode accepted it.
+
 ## [0.1.0] - 2026-09-20
 
 ### Added
