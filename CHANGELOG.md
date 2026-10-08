@@ -7,6 +7,7 @@ and the project follows [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-08
 ### Changed
 
 - Require carve-php `^0.1.11`, up from `^0.1.9`. That release added the
