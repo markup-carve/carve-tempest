@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use InvalidArgumentException;
+use MarkupCarve\Carve\Exception\RenderLossException;
 use MarkupCarve\Carve\Extension\HeadingNumbersExtension;
 use MarkupCarve\Carve\Renderer\SmartTypographyMode;
 use MarkupCarve\Carve\Renderer\SoftBreakMode;
@@ -121,6 +122,34 @@ final class CarveRendererTest extends TestCase
         )->renderWithReport('# Heading');
 
         self::assertSame('heading', $violations->profileViolations[0]['nodeType']);
+    }
+
+    /**
+     * carve-php 0.1.11 added `destination-denied` to the render-loss codes. On
+     * 0.1.9 the same document reported nothing, so strict mode let a denied
+     * destination through silently.
+     */
+    #[Test]
+    public function testReportsADeniedDestinationAsARenderLoss(): void
+    {
+        $report = CarveRenderer::safe()->renderWithReport('[x](javascript:alert(1))');
+
+        self::assertSame('destination-denied', $report->losses[0]['code']);
+        self::assertSame('inline', $report->losses[0]['nodeType']);
+        self::assertSame(1, $report->totalLosses);
+
+        $image = CarveRenderer::safe()->renderWithReport('![a](javascript:alert(1))');
+
+        self::assertSame('destination-denied', $image->losses[0]['code']);
+        self::assertSame(1, $image->totalLosses);
+    }
+
+    #[Test]
+    public function testStrictLossesRejectsADeniedDestination(): void
+    {
+        $this->expectException(RenderLossException::class);
+
+        CarveRenderer::safe()->renderWithReport('[x](javascript:alert(1))', strictLosses: true);
     }
 
     #[Test]
